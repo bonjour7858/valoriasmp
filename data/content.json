@@ -1,0 +1,42 @@
+{
+  "home": {
+    "tagline": "Un serveur Minecraft survie multijoueur en 1.21.10, pensé pour une communauté chaleureuse, des aventures sans fin et zéro prise de tête.",
+    "about": "## Bienvenue sur ValoriaSMP\nValoriaSMP est un serveur survie où chacun construit son histoire, à son rythme, dans une ambiance sympa et fair-play.\n\n- Survie en 1.21.10\n- Communauté active et staff à l’écoute\n- Événements réguliers sur Discord\n\n(Texte à modifier depuis le panel admin.)",
+    "feats": [
+      {"t": "⛏️ Survie", "d": "Explore, construis et progresse dans un monde généreux."},
+      {"t": "🤝 Communauté", "d": "Une ambiance saine, entraide et bonne humeur."},
+      {"t": "🎉 Événements", "d": "Concours, animations et surprises régulières."},
+      {"t": "🛡️ Staff actif", "d": "Une équipe disponible pour t’aider rapidement."}
+    ]
+  },
+  "roles": [
+    {"name": "Fondateur", "color": "#c9a227"},
+    {"name": "Administrateur", "color": "#d64545"},
+    {"name": "Modérateur", "color": "#3b82f6"},
+    {"name": "Helper", "color": "#1f9d55"},
+    {"name": "Builder", "color": "#8b5cf6"},
+    {"name": "Développeur", "color": "#e67e22"}
+  ],
+  "rules": [
+    {"t": "Respect avant tout", "d": "Aucune insulte, harcèlement, discrimination ou propos haineux, en jeu comme sur Discord."},
+    {"t": "Pas de triche", "d": "Hacked client, X-ray, auto-clicker, fly, kill-aura et tout avantage injuste sont interdits."},
+    {"t": "Pas d’exploitation de bugs", "d": "Les duplications et bugs doivent être signalés au staff, jamais exploités."},
+    {"t": "Pas de vol ni de grief", "d": "Ne détruis pas et ne vole pas les constructions ou affaires des autres joueurs."},
+    {"t": "PvP consenti", "d": "Tu ne peux combattre un joueur que s’il est d’accord."},
+    {"t": "Pas de publicité", "d": "Pas de promotion d’autres serveurs, sites ou services sans accord du staff."},
+    {"t": "Anti-lag", "d": "Évite les machines, fermes ou entités en excès qui font ramer le serveur."},
+    {"t": "Chat propre", "d": "Pas de spam, de majuscules abusives ni de pub déguisée."},
+    {"t": "Décisions du staff", "d": "Les décisions du staff sont à respecter. En cas de désaccord, contacte un admin en privé."}
+  ],
+  "wiki": [
+    {"id": "w1", "t": "Bien démarrer", "body": "## Rejoindre le serveur\n- Version : Minecraft Java 1.21.10\n- IP : valoriasmp.minecraft.how\n- Rejoins le Discord pour être au courant de tout\n\n## Premiers pas\nCrée-toi une base, trouve des ressources et lance-toi !"},
+    {"id": "w2", "t": "Commandes", "body": "## Commandes utiles\n- /spawn : retourner au spawn\n- /msg <joueur> : message privé\n- /help : liste des commandes\n\n(À compléter.)"},
+    {"id": "w3", "t": "FAQ", "body": "## Questions fréquentes\n**Comment contacter le staff ?** Via le Discord.\n\n(À compléter.)"}
+  ],
+  "staff": [
+    {"id": "s1", "name": "Pseudo1", "role": "Fondateur"},
+    {"id": "s2", "name": "Pseudo2", "role": "Administrateur"},
+    {"id": "s3", "name": "Pseudo3", "role": "Modérateur"},
+    {"id": "s4", "name": "Pseudo4", "role": "Helper"}
+  ]
+}
