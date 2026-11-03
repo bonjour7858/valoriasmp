@@ -35,9 +35,10 @@
     {"id": "w3", "t": "FAQ", "body": "## Questions fréquentes\n**Comment contacter le staff ?** Via le Discord.\n\n(À compléter.)"}
   ],
   "staff": [
-    {"id": "s1", "name": "Pseudo1", "role": "Fondateur", "namemc": ""},
-    {"id": "s2", "name": "Pseudo2", "role": "Co-Fondateur", "namemc": ""},
-    {"id": "s3", "name": "Pseudo3", "role": "Modérateur", "namemc": ""},
-    {"id": "s4", "name": "Pseudo4", "role": "Helper", "namemc": ""}
+    {"id": "s1", "name": "Kalwa", "role": "Fondateur", "namemc": ""},
+    {"id": "s2", "name": "AwVxrk", "role": "Co-Fondateur", "namemc": ""},
+    {"id": "s3", "name": "SteveQuest", "role": "Responsable", "namemc": "https://namemc.com/profile/SteveQuest.2"},
+    {"id": "s4", "name": "Eozen", "role": "Responsable", "namemc": ""}
+    {"id": "s5", "name": "Léo", "role": "Modérateur", "namemc": ""}
   ]
 }
