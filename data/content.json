@@ -38,7 +38,7 @@
     {"id": "s1", "name": "Kalwa", "role": "Fondateur", "namemc": ""},
     {"id": "s2", "name": "AwVxrk", "role": "Co-Fondateur", "namemc": ""},
     {"id": "s3", "name": "SteveQuest", "role": "Responsable", "namemc": "https://namemc.com/profile/SteveQuest.2"},
-    {"id": "s4", "name": "Eozen", "role": "Responsable", "namemc": ""}
-    {"id": "s5", "name": "Léo", "role": "Modérateur", "namemc": ""}
+{"id": "s4", "name": "Eozen", "role": "Responsable", "namemc": ""},
+{"id": "s5", "name": "Léo", "role": "Modérateur", "namemc": ""}
   ]
 }
