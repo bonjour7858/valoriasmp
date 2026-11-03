@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -14,18 +15,24 @@
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<header class="top"><div class="bar">
-  <a class="logo" href="#accueil">⛏ VALORIA<span>SMP</span></a>
-  <button class="burger" aria-label="Menu" onclick="document.body.classList.toggle('menu')">☰</button>
-  <nav id="nav"></nav>
-</div></header>
+<header class="top">
+  <div class="bar">
+    <a class="logo" href="#accueil">⛏ VALORIA<span>SMP</span></a>
+    <button class="burger" aria-label="Menu" onclick="document.body.classList.toggle('menu')">☰</button>
+    <nav id="nav"></nav>
+  </div>
+</header>
+
 <main id="app"></main>
+
 <footer>
   <p>© <span id="year"></span> ValoriaSMP · Non affilié à Mojang AB ni à Microsoft.</p>
   <p><a href="#admin">Administration</a></p>
 </footer>
+
 <div id="toast"></div>
-<script src="assets/config.js"></script>
+
 <script src="assets/app.js"></script>
 </body>
 </html>
+```
