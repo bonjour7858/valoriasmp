@@ -10,12 +10,13 @@
     ]
   },
   "roles": [
-    {"name": "Fondateur", "color": "#c9a227"},
-    {"name": "Administrateur", "color": "#d64545"},
-    {"name": "Modérateur", "color": "#3b82f6"},
     {"name": "Helper", "color": "#1f9d55"},
-    {"name": "Builder", "color": "#8b5cf6"},
-    {"name": "Développeur", "color": "#e67e22"}
+    {"name": "Modérateur chat", "color": "#14b8a6"},
+    {"name": "Modérateur", "color": "#3b82f6"},
+    {"name": "Opérateur", "color": "#8b5cf6"},
+    {"name": "Responsable", "color": "#e67e22"},
+    {"name": "Co-Fondateur", "color": "#d64545"},
+    {"name": "Fondateur", "color": "#c9a227"}
   ],
   "rules": [
     {"t": "Respect avant tout", "d": "Aucune insulte, harcèlement, discrimination ou propos haineux, en jeu comme sur Discord."},
@@ -34,9 +35,9 @@
     {"id": "w3", "t": "FAQ", "body": "## Questions fréquentes\n**Comment contacter le staff ?** Via le Discord.\n\n(À compléter.)"}
   ],
   "staff": [
-    {"id": "s1", "name": "Pseudo1", "role": "Fondateur"},
-    {"id": "s2", "name": "Pseudo2", "role": "Administrateur"},
-    {"id": "s3", "name": "Pseudo3", "role": "Modérateur"},
-    {"id": "s4", "name": "Pseudo4", "role": "Helper"}
+    {"id": "s1", "name": "Pseudo1", "role": "Fondateur", "namemc": ""},
+    {"id": "s2", "name": "Pseudo2", "role": "Co-Fondateur", "namemc": ""},
+    {"id": "s3", "name": "Pseudo3", "role": "Modérateur", "namemc": ""},
+    {"id": "s4", "name": "Pseudo4", "role": "Helper", "namemc": ""}
   ]
 }
