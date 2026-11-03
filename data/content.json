@@ -1,7 +1,7 @@
 {
   "home": {
     "tagline": "Un serveur Minecraft survie multijoueur en 1.21.10, pensé pour une communauté chaleureuse, des aventures sans fin et zéro prise de tête.",
-    "about": "## Bienvenue sur ValoriaSMP\nValoriaSMP est un serveur survie où chacun construit son histoire, à son rythme, dans une ambiance sympa et fair-play.\n\n- Survie en 1.21.10\n- Communauté active et staff à l’écoute\n- Événements réguliers sur Discord\n\n(Texte à modifier depuis le panel admin.)",
+    "about": "## Bienvenue sur ValoriaSMP\nValoriaSMP est un serveur survie où chacun construit son histoire, à son rythme, dans une ambiance sympa et fair-play.\n\n- Survie en 1.21.10\n- Communauté active et staff à l’écoute\n- Événements réguliers sur Discord\n",
     "feats": [
       {"t": "⛏️ Survie", "d": "Explore, construis et progresse dans un monde généreux."},
       {"t": "🤝 Communauté", "d": "Une ambiance saine, entraide et bonne humeur."},
