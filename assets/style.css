@@ -24,6 +24,8 @@ nav a:hover,nav a.on{background:var(--card);color:var(--tx)}
 .status{display:inline-flex;align-items:center;gap:8px;margin-top:20px;color:var(--mut);font-size:14px}
 .dot{width:10px;height:10px;border-radius:50%;background:#777}.dot.on{background:var(--acc);box-shadow:0 0 8px var(--acc)}.dot.off{background:var(--danger)}
 .card{background:var(--card);border:1px solid var(--bd);border-radius:16px;padding:20px}
+a.card{display:block;color:inherit;text-decoration:none;transition:transform .15s,border-color .15s}
+a.card:hover{transform:translateY(-3px);border-color:var(--acc)}
 .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
 .feat{transition:transform .15s,border-color .15s}.feat:hover{transform:translateY(-3px);border-color:var(--acc)}
 .feat h3{margin-top:0}.feat p,.rule p,.md p,.md li{color:var(--mut);margin:4px 0}
