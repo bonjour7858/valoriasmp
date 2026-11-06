@@ -1,7 +1,11 @@
 /* ValoriaSMP – site vitrine + panel admin (Supabase). Contenu par défaut : data/content.json */
 const CONFIG = { ip: "valoriasmp.minecraft.how", discord: "https://discord.gg/FPkRSKw5Y", version: "1.21.10", contentPath: "data/content.json" };
 const C = window.VALORIA_CONFIG;               // assets/config.js
-const hasCfg = !!(C && C.url && C.key && !/TON-PROJET|TA_CLE/.test(C.url + C.key));
+const cfgProblem = !C ? "config.js introuvable ou non chargé (vérifie assets/config.js et index.html)"
+  : !/^https:\/\/[a-z0-9]+\.supabase\.co$/.test(C.url || "") ? "url invalide dans config.js (attendu : https://xxxx.supabase.co, sans rien après)"
+  : (!C.key || C.key.length < 20 || /COLLE_ICI/i.test(C.key)) ? "clé non remplacée dans config.js (mets la clé anon ou publishable)"
+  : "";
+const hasCfg = !cfgProblem;
 let S = null, ready = false, tab = "staff", wikiSel = null, timer = null;
 let code = sessionStorage.getItem("vc") || "", authed = !!code;
 const $ = s => document.querySelector(s);
@@ -31,7 +35,7 @@ function save() {
   }, 700);
 }
 async function login() {
-  if (!hasCfg) return toast("Supabase n’est pas configuré (assets/config.js).", true);
+  if (!hasCfg) return toast("Config : " + cfgProblem, true);
   const c = $("#code").value;
   try {
     const r = await api("rpc/admin_login", { p_code: c });
@@ -42,7 +46,7 @@ async function login() {
 function logout() { authed = false; code = ""; sessionStorage.removeItem("vc"); render(); }
 
 /* ---------- Utilitaires ---------- */
-function toast(msg, err) { const t = $("#toast"); t.textContent = msg; t.className = "on" + (err ? " err" : ""); clearTimeout(t._t); t._t = setTimeout(() => t.className = "", 2200); }
+function toast(msg, err) { const t = $("#toast"); t.textContent = msg; t.className = "on" + (err ? " err" : ""); clearTimeout(t._t); t._t = setTimeout(() => t.className = "", 2600); }
 function md(s) {
   let out = "", ul = false;
   esc(s).split("\n").forEach(l => {
@@ -53,14 +57,67 @@ function md(s) {
   });
   return out + (ul ? "</ul>" : "");
 }
-/* NameMC : on extrait le pseudo (ou l’UUID) du lien de profil pour afficher le skin */
-function skinId(s) {
-  const u = s.namemc || "";
-  const m = u.match(/namemc\.com\/profile\/([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})/i)
-         || u.match(/namemc\.com\/(?:profile\/|search\?q=)([A-Za-z0-9_]{1,16})/i);
-  return m ? m[1] : s.name;
+
+/* ---------- Skins / têtes ---------- */
+/* UUID ou pseudo extrait du lien NameMC (profil), sinon le pseudo de la carte */
+function skinIds(s) {
+  const out = [], u = (s.namemc || "").trim();
+  const uu = u.match(/namemc\.com\/profile\/([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})(?![0-9a-f])/i);
+  if (uu) out.push(uu[1].replace(/-/g, ""));
+  else {
+    const nm = u.match(/namemc\.com\/(?:profile\/|search\?q=)([A-Za-z0-9_]{1,16})/i);
+    if (nm) out.push(nm[1]);
+    else if (/^[A-Za-z0-9_]{1,16}$/.test(u)) out.push(u);   // pseudo collé seul
+  }
+  const n = (s.name || "").trim();
+  if (n) out.push(n);
+  return [...new Set(out)];
+}
+function skinSrcs(id) {
+  const l = [`https://mc-heads.net/avatar/${id}/128`, `https://minotar.net/helm/${id}/128.png`, `https://api.mineatar.io/face/${id}?scale=8`];
+  if (/^[0-9a-f]{32}$/i.test(id)) l.push(`https://crafatar.com/avatars/${id}?size=128&overlay`);
+  return l;
+}
+/* NameMC : lien de skin (namemc.com/skin/ID) → image de tête NameMC, puis services de secours */
+function skinList(s) {
+  const u = (s.namemc || "").trim(), l = [];
+  const sk = u.match(/namemc\.com\/skin\/([0-9a-f]{16})(?![0-9a-f])/i) || u.match(/^([0-9a-f]{16})$/i);
+  if (sk) l.push(`https://s.namemc.com/2d/skin/face.png?id=${sk[1]}&scale=4`);
+  return l.concat(skinIds(s).flatMap(skinSrcs));
+}
+function skinHtml(s) {
+  if (/^data:image\/png;base64,[A-Za-z0-9+\/=]+$/.test(s.head || "")) return `<img class="av" src="${s.head}" alt="${esc(s.name)}">`;
+  const l = skinList(s), ini = esc((s.name || "?").slice(0, 2).toUpperCase()), col = roleColor(s.role);
+  if (!l.length) return `<div class="av" style="background:${col}">${ini}</div>`;
+  return `<img class="av" src="${esc(l[0])}" data-l="${esc(JSON.stringify(l))}" data-n="0" data-c="${col}" data-i="${ini}" alt="${esc(s.name)}" loading="lazy" referrerpolicy="no-referrer" onerror="skinErr(this)">`;
+}
+function skinErr(img) {
+  const l = JSON.parse(img.dataset.l), n = +img.dataset.n + 1;
+  if (n < l.length) { img.dataset.n = n; img.src = l[n]; return; }
+  const d = document.createElement("div"); d.className = "av"; d.style.background = img.dataset.c; d.textContent = img.dataset.i; img.replaceWith(d);
 }
 const profileUrl = s => /^https?:\/\/([a-z]{2}\.)?namemc\.com\//i.test(s.namemc || "") ? s.namemc : "https://namemc.com/profile/" + encodeURIComponent(s.name);
+/* Téléversement d’un skin complet : on ne garde que la tête (visage + couche chapeau) */
+function uploadSkin(i, input) {
+  const f = input.files[0]; if (!f) return;
+  if (f.size > 300000) return toast("Fichier trop gros (max 300 Ko).", true);
+  const img = new Image(), url = URL.createObjectURL(f);
+  img.onload = () => {
+    URL.revokeObjectURL(url);
+    if (img.width !== 64 || (img.height !== 64 && img.height !== 32)) return toast("Skin invalide : il doit faire 64×64 (ou 64×32) pixels.", true);
+    const a = document.createElement("canvas"); a.width = a.height = 8;
+    const x = a.getContext("2d"); x.imageSmoothingEnabled = false;
+    x.drawImage(img, 8, 8, 8, 8, 0, 0, 8, 8);     // visage
+    x.drawImage(img, 40, 8, 8, 8, 0, 0, 8, 8);    // couche chapeau
+    const b = document.createElement("canvas"); b.width = b.height = 64;
+    const c = b.getContext("2d"); c.imageSmoothingEnabled = false;
+    c.drawImage(a, 0, 0, 8, 8, 0, 0, 64, 64);
+    S.staff[i].head = b.toDataURL("image/png");
+    const top = window.scrollY; save(); render(); window.scrollTo(0, top);
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); toast("Image illisible.", true); };
+  img.src = url;
+}
 
 /* ---------- Vues ---------- */
 const V = {
@@ -80,7 +137,7 @@ const V = {
   },
   staff: () => `<h2>L’équipe</h2><div class="grid">${[...S.staff].sort((a, b) => rank(b.role) - rank(a.role)).map(s => `
     <a class="card staff" href="${esc(profileUrl(s))}" target="_blank" rel="noopener">
-    <img class="av" src="https://mc-heads.net/avatar/${encodeURIComponent(skinId(s))}/128" alt="${esc(s.name)}" loading="lazy" onerror="this.outerHTML='<div class=&quot;av&quot; style=&quot;background:${roleColor(s.role)}&quot;>${esc((s.name || "?").slice(0, 2).toUpperCase())}</div>'">
+    ${skinHtml(s)}
     <b>${esc(s.name)}</b><br><span class="badge" style="background:${roleColor(s.role)}">${esc(s.role)}</span></a>`).join("")}</div>`,
   admin: () => {
     if (!authed) return `<h2>Administration</h2><div class="card" style="max-width:360px"><label>Code d’accès</label><input id="code" type="password" placeholder="••••" onkeydown="if(event.key==='Enter')login()"><p></p><button class="btn" onclick="login()">Entrer</button></div>`;
@@ -94,8 +151,10 @@ const A = {
   staff: () => S.staff.map((s, i) => `<div class="item"><div class="two"><div><label>Pseudo Minecraft</label><input value="${esc(s.name)}" oninput="S.staff[${i}].name=this.value;save()"></div>
     <div><label>Grade</label><select onchange="S.staff[${i}].role=this.value;save()">${S.roles.map(r => `<option ${r.name === s.role ? "selected" : ""}>${esc(r.name)}</option>`).join("")}</select></div>
     <button class="btn del" ${del("staff", i)}>Retirer</button></div>
-    <label>Lien NameMC (optionnel, ex : https://namemc.com/profile/Pseudo.1)</label>
-    <input value="${esc(s.namemc)}" placeholder="https://namemc.com/profile/..." oninput="S.staff[${i}].namemc=this.value.trim();save()"></div>`).join("") +
+    <label>Skin complet (fichier .png 64×64) – seule la tête est gardée</label>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">${s.head ? `<img class="av" style="margin:0;width:48px;height:48px" src="${esc(s.head)}" alt="">` : ""}<input type="file" accept="image/png" style="flex:1;min-width:200px" onchange="uploadSkin(${i},this)">${s.head ? `<button class="btn alt sm" onclick="S.staff[${i}].head='';save();render()">Retirer la tête</button>` : ""}</div>
+    <label>Lien NameMC du skin (ex : https://namemc.com/skin/5d5eb6d84b57ea29) ou du profil</label>
+    <input value="${esc(s.namemc)}" placeholder="https://namemc.com/skin/..." oninput="S.staff[${i}].namemc=this.value.trim();save()"></div>`).join("") +
     `<button class="btn" onclick="S.staff.push({id:uid(),name:'Nouveau',role:S.roles[0].name,namemc:''});save();render()">+ Ajouter un staff</button>`,
   rules: () => S.rules.map((r, i) => `<div class="item"><div class="two"><div><label>Règle ${i + 1}</label><input value="${esc(r.t)}" oninput="S.rules[${i}].t=this.value;save()"></div><span></span><button class="btn del" ${del("rules", i)}>Retirer</button></div>
     <label>Description</label><textarea style="min-height:70px" oninput="S.rules[${i}].d=this.value;save()">${esc(r.d)}</textarea></div>`).join("") +
