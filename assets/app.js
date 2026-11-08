@@ -1,5 +1,4 @@
-/* ValoriaSMP – site vitrine + panel admin (Supabase). Contenu par défaut : data/content.json */
-const CONFIG = { ip: "valoriasmp.minecraft.how", discord: "https://discord.gg/FPkRSKw5Y", version: "1.21.10", contentPath: "data/content.json" };
+const CONFIG = { ip: "91.197.6.134:29269", discord: "https://discord.gg/FPkRSKw5Y", version: "1.21.10", contentPath: "data/content.json" };
 const C = window.VALORIA_CONFIG;               // assets/config.js
 const cfgProblem = !C ? "config.js introuvable ou non chargé (vérifie assets/config.js et index.html)"
   : !/^https:\/\/[a-z0-9]+\.supabase\.co$/.test(C.url || "") ? "url invalide dans config.js (attendu : https://xxxx.supabase.co, sans rien après)"
@@ -15,7 +14,6 @@ const page = () => (location.hash || "#accueil").slice(1);
 const roleColor = r => (S.roles.find(x => x.name === r) || {}).color || "#6b7280";
 const rank = r => S.roles.findIndex(x => x.name === r);
 
-/* ---------- Supabase (REST) ---------- */
 function api(path, body) {
   const h = { apikey: C.key, "Content-Type": "application/json" };
   if (C.key.startsWith("eyJ")) h.Authorization = "Bearer " + C.key;
@@ -45,7 +43,6 @@ async function login() {
 }
 function logout() { authed = false; code = ""; sessionStorage.removeItem("vc"); render(); }
 
-/* ---------- Utilitaires ---------- */
 function toast(msg, err) { const t = $("#toast"); t.textContent = msg; t.className = "on" + (err ? " err" : ""); clearTimeout(t._t); t._t = setTimeout(() => t.className = "", 2600); }
 function md(s) {
   let out = "", ul = false;
@@ -58,8 +55,7 @@ function md(s) {
   return out + (ul ? "</ul>" : "");
 }
 
-/* ---------- Skins / têtes ---------- */
-/* UUID ou pseudo extrait du lien NameMC (profil), sinon le pseudo de la carte */
+
 function skinIds(s) {
   const out = [], u = (s.namemc || "").trim();
   const uu = u.match(/namemc\.com\/profile\/([0-9a-f]{8}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{4}-?[0-9a-f]{12})(?![0-9a-f])/i);
@@ -78,7 +74,6 @@ function skinSrcs(id) {
   if (/^[0-9a-f]{32}$/i.test(id)) l.push(`https://crafatar.com/avatars/${id}?size=128&overlay`);
   return l;
 }
-/* NameMC : lien de skin (namemc.com/skin/ID) → image de tête NameMC, puis services de secours */
 function skinList(s) {
   const u = (s.namemc || "").trim(), l = [];
   const sk = u.match(/namemc\.com\/skin\/([0-9a-f]{16})(?![0-9a-f])/i) || u.match(/^([0-9a-f]{16})$/i);
@@ -97,7 +92,6 @@ function skinErr(img) {
   const d = document.createElement("div"); d.className = "av"; d.style.background = img.dataset.c; d.textContent = img.dataset.i; img.replaceWith(d);
 }
 const profileUrl = s => /^https?:\/\/([a-z]{2}\.)?namemc\.com\//i.test(s.namemc || "") ? s.namemc : "https://namemc.com/profile/" + encodeURIComponent(s.name);
-/* Téléversement d’un skin complet : on ne garde que la tête (visage + couche chapeau) */
 function uploadSkin(i, input) {
   const f = input.files[0]; if (!f) return;
   if (f.size > 300000) return toast("Fichier trop gros (max 300 Ko).", true);
@@ -119,7 +113,6 @@ function uploadSkin(i, input) {
   img.src = url;
 }
 
-/* ---------- Vues ---------- */
 const V = {
   accueil: () => `<section class="hero"><h1>ValoriaSMP</h1><p class="lead">${esc(S.home.tagline)}</p>
     <div class="ip"><span>${CONFIG.ip}</span><button class="btn" id="cp" onclick="copyIp()">Copier</button></div>
@@ -188,7 +181,7 @@ async function init() {
   catch { $("#app").innerHTML = "<p>Impossible de charger le contenu. Lance le site via un serveur (GitHub Pages ou <code>python -m http.server</code>).</p>"; return; }
   let db = {};
   if (hasCfg) { try { const r = await api("site_content?select=content&id=eq.1"); db = r[0]?.content || {}; ready = true; } catch (e) { console.warn("Supabase :", e.message); } }
-  S = { ...base, ...db };              // content.json = valeurs par défaut, Supabase = version à jour
+  S = { ...base, ...db };             
   window.addEventListener("hashchange", render); render();
 }
 init();
