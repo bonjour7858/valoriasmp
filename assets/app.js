@@ -1,5 +1,5 @@
-const CONFIG = { ip: "91.197.6.134:29269", discord: "https://discord.gg/FPkRSKw5Y", version: "1.21.10", contentPath: "data/content.json" };
-const C = window.VALORIA_CONFIG;               // assets/config.js
+const CONFIG = { ip: "91.197.6.134:29269", discord: "https://discord.gg/FPkRSKw5Y", version: "26.1.2", contentPath: "data/content.json" };
+const C = window.VALORIA_CONFIG;               
 const cfgProblem = !C ? "config.js introuvable ou non chargé (vérifie assets/config.js et index.html)"
   : !/^https:\/\/[a-z0-9]+\.supabase\.co$/.test(C.url || "") ? "url invalide dans config.js (attendu : https://xxxx.supabase.co, sans rien après)"
   : (!C.key || C.key.length < 20 || /COLLE_ICI/i.test(C.key)) ? "clé non remplacée dans config.js (mets la clé anon ou publishable)"
