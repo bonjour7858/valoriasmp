@@ -1,7 +1,7 @@
 {
   "home": {
     "tagline": "Un serveur Minecraft survie multijoueur en 1.21.10, pensé pour une communauté chaleureuse, des aventures sans fin et zéro prise de tête.",
-    "about": "## Bienvenue sur ValoriaSMP\nValoriaSMP est un serveur survie où chacun construit son histoire, à son rythme, dans une ambiance sympa et fair-play.\n\n- Survie en 1.21.10\n- Communauté active et staff à l’écoute\n- Événements réguliers sur Discord\n",
+    "about": "## Bienvenue sur OnyxySMP\nOnyxySMP est un serveur survie où chacun construit son histoire, à son rythme, dans une ambiance sympa et fair-play.\n\n- Survie en 26.1.2\n- Communauté active et staff à l’écoute\n- Événements réguliers sur Discord\n",
     "feats": [
       {"t": "⛏️ Survie", "d": "Explore, construis et progresse dans un monde généreux."},
       {"t": "🤝 Communauté", "d": "Une ambiance saine, entraide et bonne humeur."},
@@ -30,7 +30,7 @@
     {"t": "Décisions du staff", "d": "Les décisions du staff sont à respecter. En cas de désaccord, contacte un admin en privé."}
   ],
   "wiki": [
-    {"id": "w1", "t": "Bien démarrer", "body": "## Rejoindre le serveur\n- Version : Minecraft Java 1.21.10\n- IP : valoriasmp.minecraft.how\n- Rejoins le Discord pour être au courant de tout\n\n## Premiers pas\nCrée-toi une base, trouve des ressources et lance-toi !"},
+    {"id": "w1", "t": "Bien démarrer", "body": "## Rejoindre le serveur\n- Version : Minecraft Java 26.1.2\n- IP : onyxysmp.minecraft.how\n- Rejoins le Discord pour être au courant de tout\n\n## Premiers pas\nCrée-toi une base, trouve des ressources et lance-toi !"},
     {"id": "w2", "t": "Commandes", "body": "## Commandes utiles\n- /spawn : retourner au spawn\n- /msg <joueur> : message privé\n- /help : liste des commandes\n\n(À compléter.)"},
     {"id": "w3", "t": "FAQ", "body": "## Questions fréquentes\n**Comment contacter le staff ?** Via le Discord.\n\n(À compléter.)"}
   ],
@@ -39,6 +39,5 @@
     {"id": "s2", "name": "AwVxrk", "role": "Co-Fondateur", "namemc": ""},
     {"id": "s3", "name": "SteveQuest", "role": "Responsable", "namemc": "https://namemc.com/profile/SteveQuest.2"},
 {"id": "s4", "name": "Eozen", "role": "Responsable", "namemc": ""},
-{"id": "s5", "name": "Léo", "role": "Modérateur", "namemc": ""}
   ]
 }
